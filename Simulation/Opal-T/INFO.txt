@@ -1,0 +1,32 @@
+Here, I will describe a little bit more into the inner workings of the Opal-T optimization code as well as explain the extension to using a two beam setup. 
+
+The optimization function was used to minimize emittance (emit_x), beam size (rms_x and rms_s), and the number of particles lost (Nfit). Nfit is the total number of starting particles minus the result "alive" particles. The case that was chosen for the single bunch for the input parameters (variables) and the output parameters:
+
+Input:
+RF frequency = 1.3e9 Hz
+N particles = 30000
+Beam bunch charge = 1 nC
+Gun injection amp = 40.65
+Gun injection phase = -15.99
+L1_amp = 11.78
+L1_phase = -10.89
+L2_amp = 11.19
+L2_phase = 10.60
+L{3,4,5,6}_amp = 22.06
+
+Output beam parameters:
+rms_x = 
+rms_y = 
+rms_s = 
+rms_ps = 
+emit_x = 
+emit_y = 
+emit_s = 
+beta_x = 
+beta_y = 
+kinetic energy = 
+N_particles = 
+
+
+
+
