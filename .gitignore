@@ -2,5 +2,5 @@
 *.h5
 *.dat
 *.su
-diags/reducedfiles/
-diags/slabmovingwarpx/
+*/diags/reducedfiles/
+*/diags/slabmovingwarpx/
