@@ -1,0 +1,1 @@
+For the simulations, various scripts were created that allowed for conversion between programs and to analyze the results from each program. Here, I will split into conversion (scripts that convert from one program to another), plotting (scripts that actively plot the results and provide information), and library (scripts that I call on from conversion or plotting scripts). 

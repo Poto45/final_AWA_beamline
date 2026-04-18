@@ -1,0 +1,1044 @@
+Loading openmpi/openmpi-4.1.5-gcc-12.3.0-cuda-12.2
+  Loading requirement: cuda/cuda-12.2
+# of procs:   
+pbs_o_path:    /home/cphillips/.local/bin:/home/cphillips/bin:/opt/clmgr/sbin:/opt/clmgr/bin:/opt/sgi/sbin:/opt/sgi/bin:/usr/share/Modules/bin:/usr/condabin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/c3/bin:/opt/pbs/bin:/sbin:/bin:/lstr/sahara/aard/philippe/codes/pelegant_metis/epics/extensions/bin/linux-x86_64:/lstr/sahara/aard/philippe/codes/pelegant_metis/oag/apps/bin/linux-x86_64
+workdir:       /lstr/sahara/aard/cphillips/1nC/1beam/2Ele/diss
+pbs_nodefile:  /var/spool/pbs/aux/85991.cm
+contents of nodefile is: 
+cn16.head.cm.local
+cn16.head.cm.local
+cn16.head.cm.local
+cn16.head.cm.local
+ 
+Running Pelegant on 4 cores at Mon Oct 27 14:02:37 2025
+
+This is elegant 2023.4 Jan 28 2024, by M. Borland, J. Calvey, M. Carla', N. Carmignani, AJ Dick, Z. Duan, M. Ehrlichman, L. Emery, W. Guo, N. Kuklev, R. Lindberg, V. Sajaev, R. Soliday, Y.-P. Sun, M. Wallbank, C.-X. Wang, Y. Wang, Y. Wu, and A. Xiao.
+Parallelized by Y. Wang, H. Shang, and M. Borland.
+=====================================================================================
+Thanks for using Pelegant.  Please cite the following references in your publications:
+  M. Borland, "elegant: A Flexible SDDS-Compliant Code for Accelerator Simulation,"
+  Advanced Photon Source LS-287, September 2000.
+  Y. Wang and M. Borland, "Pelegant: A Parallel Accelerator Simulation Code for  
+  Electron Generation and Tracking", Proceedings of the 12th Advanced Accelerator  
+  Concepts Workshop, AIP Conf. Proc. 877, 241 (2006).
+If you use a modified version, please indicate this in all publications.
+=====================================================================================
+Link date: Jan 28 2024 15:35:29, SVN revision: 30430M
+MPI library version: Open MPI v4.1.5, package: Open MPI serguei@metis Distribution, ident: 4.1.5, repo rev: v4.1.5, Feb 23, 2023
+statistics:    ET:  00:00:0.005 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124362
+&global_settings
+    inhibit_fsync = 0,
+    allow_overwrite = 1,
+    echo_namelists = 1,
+    mpi_randomization_mode = 3,
+    exact_normalized_emittance = 0,
+    SR_gaussian_limit = 3.000000000000000e+00,
+    inhibit_seed_permutation = 0,
+    log_file = {NULL},
+    error_log_file = {NULL},
+    share_tracking_based_matrices = 1,
+    tracking_based_matrices_store_limit = 5000,
+    parallel_tracking_based_matrices = 1,
+    mpi_io_force_file_sync = 0,
+    mpi_io_read_buffer_size = 400000,
+    mpi_io_write_buffer_size = 400000,
+    usleep_mpi_io_kludge = 0,
+    tracking_matrix_step_factor = 1.000000000000000e+00,
+    tracking_matrix_points = 9.000000000000000e+00,
+    tracking_matrix_max_fit_order = 4.000000000000000e+00,
+    tracking_matrix_step_size[0] = 5.000000000000000e-05, 5.000000000000000e-05, 5.000000000000000e-05, 
+        5.000000000000000e-05, 5.000000000000000e-05, 5.000000000000000e-05,
+    tracking_matrix_cleanup = 0,
+    warning_limit = 10,
+    malign_method = 0,
+    slope_limit = 1.000000000000000e+00,
+    coord_limit = 1.000000000000000e+01,
+    search_path = {NULL},
+&end
+statistics:    ET:  00:00:0.005 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124366
+&run_setup
+    lattice = eley42ch_final.lte,
+    use_beamline = awa_beamline,
+    rootname = {NULL},
+    output = {NULL},
+    centroid = {NULL},
+    bpm_centroid = {NULL},
+    sigma = {NULL},
+    final = {NULL},
+    acceptance = {NULL},
+    losses = {NULL},
+    losses_include_global_coordinates = 0,
+    losses_s_limit[0] = -1.797693134862316e+308, 1.797693134862316e+308,
+    magnets = {NULL},
+    profile = {NULL},
+    semaphore_file = {NULL},
+    parameters = {NULL},
+    suppress_parameter_defaults = 0,
+    rfc_reference_output = {NULL},
+    combine_bunch_statistics = 0,
+    wrap_around = 1,
+    final_pass = 0,
+    default_order = 1,
+    concat_order = 0,
+    print_statistics = 0,
+    show_element_timing = 0,
+    monitor_memory_usage = 0,
+    random_number_seed = 987654321,
+    correction_iterations = 1,
+    echo_lattice = 0,
+    p_central = 9.747007458735931e+01,
+    p_central_mev = 0.000000000000000e+00,
+    always_change_p0 = 0,
+    load_balancing_on = 0,
+    random_sequence_No = 1,
+    expand_for = {NULL},
+    tracking_updates = 1,
+    search_path = {NULL},
+    element_divisions = 0,
+    back_tracking = 0,
+    s_start = 0.000000000000000e+00,
+&end
+Seeding random number generators (mode=3)
+length of beamline AWA_BEAMLINE per pass: 1.727975200000000e+01 m
+statistics:    ET:  00:00:0.058 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124413
+&run_control
+    n_steps = 1,
+    bunch_frequency = 0.000000000000000e+00,
+    n_indices = 0,
+    n_passes = 1,
+    n_passes_fiducial = 0,
+    terminate_on_failure = 0,
+    reset_rf_for_each_step = 1,
+    first_is_fiducial = 0,
+    restrict_fiducialization = 0,
+    reset_scattering_seed = 0,
+    wait_for_step_semaphore = {NULL},
+    step_done_semaphore = {NULL},
+    semaphore_check_interval = 1.000000000000000e+00,
+    restart_files = 0,
+&end
+statistics:    ET:  00:00:0.058 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124413
+&twiss_output
+    filename = %s.twi1,
+    matched = 0,
+    output_at_each_step = 0,
+    output_before_tune_correction = 0,
+    final_values_only = 0,
+    statistics = 0,
+    radiation_integrals = 0,
+    beta_x = 2.062791874020846e+01,
+    alpha_x = 1.199347342640338e+00,
+    eta_x = 0.000000000000000e+00,
+    etap_x = 0.000000000000000e+00,
+    beta_y = 2.013344328940075e+01,
+    alpha_y = 1.162469223623984e+00,
+    eta_y = 0.000000000000000e+00,
+    etap_y = 0.000000000000000e+00,
+    reference_file = {NULL},
+    reference_element = {NULL},
+    reference_element_occurrence = 0,
+    reflect_reference_values = 0,
+    concat_order = 1,
+    higher_order_chromaticity = 0,
+    higher_order_chromaticity_points = 5,
+    higher_order_chromaticity_range = 4.000000000000000e-04,
+    quick_higher_order_chromaticity = 0,
+    chromatic_tune_spread_half_range = 0.000000000000000e+00,
+    cavities_are_drifts_if_matched = 1,
+    compute_driving_terms = 0,
+    leading_order_driving_terms_only = 0,
+    s_dependent_driving_terms_file = {NULL},
+    local_dispersion = 1,
+    n_periods = 1,
+&end
+final Twiss parameters:
+         beta          alpha           nu           eta          eta'        accept.
+          m                          1/2pi           m                       mm-mrad
+---------------------------------------------------------------------------------------
+  x:  1.447549e+01 -8.432987e-01  2.508889e-01  0.000000e+00  0.000000e+00  6.908231e-02
+  y:  1.483065e+01 -8.555900e-01  2.495739e-01  0.000000e+00  0.000000e+00  6.742795e-02
+x acceptance limited to 6.908231e-08 by DCHAMBERYAG11B ending at 1.727975e+01 m
+y acceptance limited to 6.742795e-08 by DCHAMBERYAG11B ending at 1.727975e+01 m
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124502
+&optimization_setup
+    equation = {NULL},
+    mode = minimize,
+    method = simplex,
+    statistic = sum-absolute-value,
+    tolerance = 1.000000000000000e-14,
+    hybrid_simplex_tolerance = -1.000000000000000e-02,
+    hybrid_simplex_tolerance_count = 2.000000000000000e+00,
+    hybrid_simplex_comparison_interval = 0,
+    target = 1.000000000000000e-12,
+    center_on_orbit = 0,
+    center_momentum_also = 1,
+    soft_failure = 1,
+    n_passes = 10,
+    n_evaluations = 1500,
+    n_restarts = 5,
+    restart_reset_threshold = 0.000000000000000e+00,
+    restart_worst_term_factor = 1.000000000000000e+00,
+    restart_worst_terms = 1,
+    matrix_order = 1,
+    log_file = {NULL},
+    term_log_file = {NULL},
+    verbose = 1,
+    output_sparsing_factor = 1,
+    crossover = twopoint,
+    balance_terms = 0,
+    simplex_divisor = 3.000000000000000e+00,
+    simplex_pass_range_factor = 1.000000000000000e+00,
+    include_simplex_1d_scans = 1,
+    start_from_simplex_vertex1 = 0,
+    restart_random_numbers = 0,
+    random_factor = 1.000000000000000e+00,
+    rcds_step_factor = 1.000000000000000e-01,
+    n_iterations = 10000,
+    max_no_change = 1000,
+    population_size = 100,
+    print_all_individuals = 0,
+    population_log = {NULL},
+    interrupt_file = %s.interrupt,
+    interrupt_file_check_interval = 1.000000000000000e+01,
+    inhibit_tracking = 0,
+    simplex_log = {NULL},
+    simplex_log_interval = 1,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124502
+&optimization_term
+    term = "YAG7#1.betax 8. 1e-2 sene",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_term
+    term = "YAG7#1.betay 8. 1e-2 sene",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_term
+    term = "YAG7#1.alphax 0 1e-3 sene",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_term
+    term = "YAG7#1.alphay 0 1e-3 sene",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_term
+    term = "max.betax 10. 1 segt",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_term
+    term = "max.betay 10. 1 segt",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_variable
+    name = QIMP4,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_variable
+    name = QIMP5,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_variable
+    name = QIMP6,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&optimization_variable
+    name = QIMP7,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.110 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+&bunched_beam
+    bunch = {NULL},
+    n_particles_per_bunch = 1,
+    multiply_np_by_cores = 0,
+    time_start = 0.000000000000000e+00,
+    matched_to_cell = {NULL},
+    emit_x = 0.000000000000000e+00,
+    emit_nx = 0.000000000000000e+00,
+    beta_x = 1.000000000000000e+00,
+    alpha_x = 0.000000000000000e+00,
+    eta_x = 0.000000000000000e+00,
+    etap_x = 0.000000000000000e+00,
+    emit_y = 0.000000000000000e+00,
+    emit_ny = 0.000000000000000e+00,
+    beta_y = 1.000000000000000e+00,
+    alpha_y = 0.000000000000000e+00,
+    eta_y = 0.000000000000000e+00,
+    etap_y = 0.000000000000000e+00,
+    use_twiss_command_values = 0,
+    use_moments_output_values = 0,
+    Po = 9.747007458735931e+01,
+    sigma_dp = 0.000000000000000e+00,
+    sigma_s = 0.000000000000000e+00,
+    dp_s_coupling = 0.000000000000000e+00,
+    emit_z = 0.000000000000000e+00,
+    beta_z = 0.000000000000000e+00,
+    alpha_z = 0.000000000000000e+00,
+    momentum_chirp = 0.000000000000000e+00,
+    one_random_bunch = 1,
+    save_initial_coordinates = 1,
+    limit_invariants = 0,
+    symmetrize = 0,
+    halton_sequence[0] = 0, 0, 0,
+    halton_radix[0] = 0, 0, 0, 0, 0, 0,
+    optimized_halton = 0,
+    randomize_order[0] = 0, 0, 0,
+    limit_in_4d = 0,
+    enforce_rms_values[0] = 0, 0, 0,
+    distribution_cutoff[0] = 2.000000000000000e+00, 2.000000000000000e+00, 2.000000000000000e+00,
+    distribution_type[0] = gaussian, gaussian, gaussian,
+    centroid[0] = 0.000000000000000e+00, 0.000000000000000e+00, 0.000000000000000e+00, 0.000000000000000e+00, 
+        0.000000000000000e+00, 0.000000000000000e+00,
+    first_is_fiducial = 0,
+&end
+statistics:    ET:  00:00:0.111 CP:    0.14 BIO:0 DIO:0 PF:0 MEM:124503
+Updating floor coordinates
+tracking step 1
+&optimize
+    summarize_setup = 1,
+&end
+
+Optimization to be performed using method 'simplex' in mode 'minimize' with tolerance 1.000000e-14.
+    As many as 1500 function evaluations will be performed on each of 10 passes.
+    The quantity to be optimized is defined by the equation
+        YAG7#1.betax 8. 1e-2 sene YAG7#1.betay 8. 1e-2 sene + YAG7#1.alphax 0 1e-3 sene + YAG7#1.alphay 0 1e-3 sene + max.betax 10. 1 segt + max.betay 10. 1 segt + 
+    subject to 0 constraints.
+    The following variables will be used in the optimization:
+    name      initial value   lower limit    upper limit     step size
+--------------------------------------------------------------------------
+    QIMP4.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+    QIMP5.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+    QIMP6.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+    QIMP7.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+
+
+Initial value for QIMP4.K1 is 1.000000e-12
+Initial value for QIMP5.K1 is 1.000000e-12
+Initial value for QIMP6.K1 is 1.000000e-12
+Initial value for QIMP7.K1 is 1.000000e-12
+Starting simplex optimization.
+generating bunch 0
+Starting simplex optimization.
+Exited optimization loop
+tracking 1 particles
+27 Oct 25 14:02:37: This step establishes energy profile vs s (fiducial beam).
+27 Oct 25 14:02:37: Rf phases/references reset.
+Tracking step completed   ET:  00:00:0.415 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124701
+
+
+Post-tracking output completed.
+Optimization results:
+    optimization function has value 44462.9978333585
+Terms of equation: 
+1*(YAG7#1.betax 8. 1e-2 sene):   1.763110579653253e+03
+1*(YAG7#1.betay 8. 1e-2 sene):   1.623492192217999e+03
+1*(YAG7#1.alphax 0 1e-3 sene):   2.101069027500384e+04
+1*(YAG7#1.alphay 0 1e-3 sene):   1.985006545683540e+04
+1*(max.betax 10. 1 segt):   1.129526567484742e+02
+1*(max.betay 10. 1 segt):   1.026866728995011e+02
+    A total of 3372 function evaluations were made with an average of 843 function evaluations per processor
+Optimum values of variables and changes from initial values:
+  QIMP4.K1:  -4.384397894182958e-01   -4.384397894192958e-01
+  QIMP5.K1:   8.779537989433218e-01    8.779537989423218e-01
+  QIMP6.K1:  -3.290897226191776e-01   -3.290897226201776e-01
+  QIMP7.K1:  -1.172569460989748e-01   -1.172569460999748e-01
+statistics:    ET:  00:00:0.416 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124701
+&save_lattice
+    filename = first.lte,
+    suppress_defaults = 1,
+    output_seq = 0,
+&end
+first.lte opened in mode w
+statistics:    ET:  00:00:0.418 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124701
+&run_setup
+    lattice = eley42ch_final.lte,
+    use_beamline = awa_beamline,
+    rootname = {NULL},
+    output = {NULL},
+    centroid = {NULL},
+    bpm_centroid = {NULL},
+    sigma = {NULL},
+    final = {NULL},
+    acceptance = {NULL},
+    losses = {NULL},
+    losses_include_global_coordinates = 0,
+    losses_s_limit[0] = -1.797693134862316e+308, 1.797693134862316e+308,
+    magnets = {NULL},
+    profile = {NULL},
+    semaphore_file = {NULL},
+    parameters = {NULL},
+    suppress_parameter_defaults = 0,
+    rfc_reference_output = {NULL},
+    combine_bunch_statistics = 0,
+    wrap_around = 1,
+    final_pass = 0,
+    default_order = 1,
+    concat_order = 0,
+    print_statistics = 0,
+    show_element_timing = 0,
+    monitor_memory_usage = 0,
+    random_number_seed = 987654321,
+    correction_iterations = 1,
+    echo_lattice = 0,
+    p_central = 9.747007458735931e+01,
+    p_central_mev = 0.000000000000000e+00,
+    always_change_p0 = 0,
+    load_balancing_on = 0,
+    random_sequence_No = 1,
+    expand_for = {NULL},
+    tracking_updates = 1,
+    search_path = {NULL},
+    element_divisions = 0,
+    back_tracking = 0,
+    s_start = 0.000000000000000e+00,
+&end
+Seeding random number generators (mode=3)
+length of beamline AWA_BEAMLINE per pass: 1.727975200000000e+01 m
+statistics:    ET:  00:00:0.429 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124709
+&run_control
+    n_steps = 1,
+    bunch_frequency = 0.000000000000000e+00,
+    n_indices = 0,
+    n_passes = 1,
+    n_passes_fiducial = 0,
+    terminate_on_failure = 0,
+    reset_rf_for_each_step = 1,
+    first_is_fiducial = 0,
+    restrict_fiducialization = 0,
+    reset_scattering_seed = 0,
+    wait_for_step_semaphore = {NULL},
+    step_done_semaphore = {NULL},
+    semaphore_check_interval = 1.000000000000000e+00,
+    restart_files = 0,
+&end
+statistics:    ET:  00:00:0.429 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124709
+&twiss_output
+    filename = %s.twi2,
+    matched = 0,
+    output_at_each_step = 0,
+    output_before_tune_correction = 0,
+    final_values_only = 0,
+    statistics = 0,
+    radiation_integrals = 0,
+    beta_x = 2.062791874020846e+01,
+    alpha_x = 1.199347342640338e+00,
+    eta_x = 0.000000000000000e+00,
+    etap_x = 0.000000000000000e+00,
+    beta_y = 2.013344328940075e+01,
+    alpha_y = 1.162469223623984e+00,
+    eta_y = 0.000000000000000e+00,
+    etap_y = 0.000000000000000e+00,
+    reference_file = {NULL},
+    reference_element = {NULL},
+    reference_element_occurrence = 0,
+    reflect_reference_values = 0,
+    concat_order = 1,
+    higher_order_chromaticity = 0,
+    higher_order_chromaticity_points = 5,
+    higher_order_chromaticity_range = 4.000000000000000e-04,
+    quick_higher_order_chromaticity = 0,
+    chromatic_tune_spread_half_range = 0.000000000000000e+00,
+    cavities_are_drifts_if_matched = 1,
+    compute_driving_terms = 0,
+    leading_order_driving_terms_only = 0,
+    s_dependent_driving_terms_file = {NULL},
+    local_dispersion = 1,
+    n_periods = 1,
+&end
+final Twiss parameters:
+         beta          alpha           nu           eta          eta'        accept.
+          m                          1/2pi           m                       mm-mrad
+---------------------------------------------------------------------------------------
+  x:  1.447549e+01 -8.432987e-01  2.508889e-01  0.000000e+00  0.000000e+00  6.908231e-02
+  y:  1.483065e+01 -8.555900e-01  2.495739e-01  0.000000e+00  0.000000e+00  6.742795e-02
+x acceptance limited to 6.908231e-08 by DCHAMBERYAG11B ending at 1.727975e+01 m
+y acceptance limited to 6.742795e-08 by DCHAMBERYAG11B ending at 1.727975e+01 m
+statistics:    ET:  00:00:0.528 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_setup
+    equation = {NULL},
+    mode = minimize,
+    method = simplex,
+    statistic = sum-absolute-value,
+    tolerance = 1.000000000000000e-14,
+    hybrid_simplex_tolerance = -1.000000000000000e-02,
+    hybrid_simplex_tolerance_count = 2.000000000000000e+00,
+    hybrid_simplex_comparison_interval = 0,
+    target = 1.000000000000000e-12,
+    center_on_orbit = 0,
+    center_momentum_also = 1,
+    soft_failure = 1,
+    n_passes = 10,
+    n_evaluations = 1500,
+    n_restarts = 5,
+    restart_reset_threshold = 0.000000000000000e+00,
+    restart_worst_term_factor = 1.000000000000000e+00,
+    restart_worst_terms = 1,
+    matrix_order = 1,
+    log_file = {NULL},
+    term_log_file = {NULL},
+    verbose = 1,
+    output_sparsing_factor = 1,
+    crossover = twopoint,
+    balance_terms = 0,
+    simplex_divisor = 3.000000000000000e+00,
+    simplex_pass_range_factor = 1.000000000000000e+00,
+    include_simplex_1d_scans = 1,
+    start_from_simplex_vertex1 = 0,
+    restart_random_numbers = 0,
+    random_factor = 1.000000000000000e+00,
+    rcds_step_factor = 1.000000000000000e-01,
+    n_iterations = 10000,
+    max_no_change = 1000,
+    population_size = 100,
+    print_all_individuals = 0,
+    population_log = {NULL},
+    interrupt_file = %s.interrupt,
+    interrupt_file_check_interval = 1.000000000000000e+01,
+    inhibit_tracking = 0,
+    simplex_log = {NULL},
+    simplex_log_interval = 1,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_term
+    term = "CMBR2#2.betax 0.3 5e-5 sene",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_term
+    term = "CMBR2#2.betay 0.3 5e-5 sene",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_term
+    term = "CMBR2#2.alphax 0 1e-3 sene",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_term
+    term = "CMBR2#2.alphay 0 1e-3 sene",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_term
+    term = "max.betax 18. 1e-2 segt",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_term
+    term = "max.betay 18. 1e-2 segt",
+    weight = 1.000000000000000e+00,
+    field_string = {NULL},
+    field_initial_value = 0,
+    field_final_value = 0,
+    field_interval = 1,
+    input_file = {NULL},
+    input_column = {NULL},
+    verbose = 0,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_variable
+    name = QRBS11,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_variable
+    name = QRBS12,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_variable
+    name = QIMP15,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_variable
+    name = QIMP16,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&optimization_variable
+    name = QIMP17,
+    item = K1,
+    lower_limit = -2.000000000000000e+01,
+    upper_limit = 2.000000000000000e+01,
+    step_size = 1.000000000000000e+00,
+    fractional_step_size = -1.000000000000000e+00,
+    disable = 0,
+    force_inside = 0,
+    differential_limits = 0,
+    no_element = 0,
+    initial_value = 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+&bunched_beam
+    bunch = {NULL},
+    n_particles_per_bunch = 1,
+    multiply_np_by_cores = 0,
+    time_start = 0.000000000000000e+00,
+    matched_to_cell = {NULL},
+    emit_x = 0.000000000000000e+00,
+    emit_nx = 0.000000000000000e+00,
+    beta_x = 1.000000000000000e+00,
+    alpha_x = 0.000000000000000e+00,
+    eta_x = 0.000000000000000e+00,
+    etap_x = 0.000000000000000e+00,
+    emit_y = 0.000000000000000e+00,
+    emit_ny = 0.000000000000000e+00,
+    beta_y = 1.000000000000000e+00,
+    alpha_y = 0.000000000000000e+00,
+    eta_y = 0.000000000000000e+00,
+    etap_y = 0.000000000000000e+00,
+    use_twiss_command_values = 0,
+    use_moments_output_values = 0,
+    Po = 9.747007458735931e+01,
+    sigma_dp = 0.000000000000000e+00,
+    sigma_s = 0.000000000000000e+00,
+    dp_s_coupling = 0.000000000000000e+00,
+    emit_z = 0.000000000000000e+00,
+    beta_z = 0.000000000000000e+00,
+    alpha_z = 0.000000000000000e+00,
+    momentum_chirp = 0.000000000000000e+00,
+    one_random_bunch = 1,
+    save_initial_coordinates = 1,
+    limit_invariants = 0,
+    symmetrize = 0,
+    halton_sequence[0] = 0, 0, 0,
+    halton_radix[0] = 0, 0, 0, 0, 0, 0,
+    optimized_halton = 0,
+    randomize_order[0] = 0, 0, 0,
+    limit_in_4d = 0,
+    enforce_rms_values[0] = 0, 0, 0,
+    distribution_cutoff[0] = 2.000000000000000e+00, 2.000000000000000e+00, 2.000000000000000e+00,
+    distribution_type[0] = gaussian, gaussian, gaussian,
+    centroid[0] = 0.000000000000000e+00, 0.000000000000000e+00, 0.000000000000000e+00, 0.000000000000000e+00, 
+        0.000000000000000e+00, 0.000000000000000e+00,
+    first_is_fiducial = 0,
+&end
+statistics:    ET:  00:00:0.529 CP:    0.45 BIO:0 DIO:0 PF:0 MEM:124789
+Updating floor coordinates
+tracking step 1
+&optimize
+    summarize_setup = 1,
+&end
+
+Optimization to be performed using method 'simplex' in mode 'minimize' with tolerance 1.000000e-14.
+    As many as 1500 function evaluations will be performed on each of 10 passes.
+    The quantity to be optimized is defined by the equation
+        CMBR2#2.betax 0.3 5e-5 sene CMBR2#2.betay 0.3 5e-5 sene + CMBR2#2.alphax 0 1e-3 sene + CMBR2#2.alphay 0 1e-3 sene + max.betax 18. 1e-2 segt + max.betay 18. 1e-2 segt + 
+    subject to 0 constraints.
+    The following variables will be used in the optimization:
+    name      initial value   lower limit    upper limit     step size
+--------------------------------------------------------------------------
+   QRBS11.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+   QRBS12.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+   QIMP15.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+   QIMP16.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+   QIMP17.K1   1.000000e-12  -2.000000e+01   2.000000e+01   1.000000e+00
+
+
+Initial value for QRBS11.K1 is 1.000000e-12
+Initial value for QRBS12.K1 is 1.000000e-12
+Initial value for QIMP15.K1 is 1.000000e-12
+Initial value for QIMP16.K1 is 1.000000e-12
+Initial value for QIMP17.K1 is 1.000000e-12
+Starting simplex optimization.
+generating bunch 0
+Starting simplex optimization.
+Starting simplex optimization.
+Starting simplex optimization.
+Starting simplex optimization.
+Exited optimization loop
+tracking 1 particles
+27 Oct 25 14:02:40: This step establishes energy profile vs s (fiducial beam).
+27 Oct 25 14:02:40: Rf phases/references reset.
+Tracking step completed   ET:  00:00:3.358 CP:    3.27 BIO:0 DIO:0 PF:0 MEM:126934
+
+
+Post-tracking output completed.
+Optimization results:
+    optimization function has value 19412788.5772192
+Terms of equation: 
+1*(CMBR2#2.betax 0.3 5e-5 sene):   4.277496461719663e+06
+1*(CMBR2#2.betay 0.3 5e-5 sene):   9.410475531142548e+05
+1*(CMBR2#2.alphax 0 1e-3 sene):   1.029892994670285e+04
+1*(CMBR2#2.alphay 0 1e-3 sene):   5.325401428955895e+03
+1*(max.betax 18. 1e-2 segt):   1.077901091960517e+07
+1*(max.betay 18. 1e-2 segt):   3.399609311404450e+06
+    A total of 31608 function evaluations were made with an average of 7902 function evaluations per processor
+Optimum values of variables and changes from initial values:
+ QRBS11.K1:   4.211120407563903e+00    4.211120407562903e+00
+ QRBS12.K1:  -6.563001497370546e+00   -6.563001497371546e+00
+ QIMP15.K1:  -8.073046334370915e+00   -8.073046334371915e+00
+ QIMP16.K1:   1.398747158696936e+01    1.398747158696836e+01
+ QIMP17.K1:  -7.264093258689322e+00   -7.264093258690322e+00
+statistics:    ET:  00:00:3.359 CP:    3.27 BIO:0 DIO:0 PF:0 MEM:126934
+&save_lattice
+    filename = second.lte,
+    suppress_defaults = 1,
+    output_seq = 0,
+&end
+second.lte opened in mode w
+statistics:    ET:  00:00:3.361 CP:    3.27 BIO:0 DIO:0 PF:0 MEM:126934
+&divide_elements
+    name = *,
+    type = {NULL},
+    exclude = {NULL},
+    exclude_name_pattern = {NULL},
+    exclude_type_pattern = {NULL},
+    divisions = 0,
+    maximum_length = 1.000000000000000e-02,
+    clear = 0,
+&end
+statistics:    ET:  00:00:3.361 CP:    3.27 BIO:0 DIO:0 PF:0 MEM:126934
+&run_setup
+    lattice = second.lte,
+    use_beamline = awa_beamline,
+    rootname = {NULL},
+    output = %s.out,
+    centroid = %s.cen,
+    bpm_centroid = {NULL},
+    sigma = %s.s,
+    final = %s.fin,
+    acceptance = {NULL},
+    losses = {NULL},
+    losses_include_global_coordinates = 0,
+    losses_s_limit[0] = -1.797693134862316e+308, 1.797693134862316e+308,
+    magnets = %s.mag,
+    profile = {NULL},
+    semaphore_file = {NULL},
+    parameters = {NULL},
+    suppress_parameter_defaults = 0,
+    rfc_reference_output = {NULL},
+    combine_bunch_statistics = 0,
+    wrap_around = 1,
+    final_pass = 0,
+    default_order = 2,
+    concat_order = 0,
+    print_statistics = 0,
+    show_element_timing = 0,
+    monitor_memory_usage = 0,
+    random_number_seed = 987654321,
+    correction_iterations = 1,
+    echo_lattice = 0,
+    p_central = 9.747007458735931e+01,
+    p_central_mev = 0.000000000000000e+00,
+    always_change_p0 = 0,
+    load_balancing_on = 0,
+    random_sequence_No = 1,
+    expand_for = {NULL},
+    tracking_updates = 1,
+    search_path = {NULL},
+    element_divisions = 0,
+    back_tracking = 0,
+    s_start = 0.000000000000000e+00,
+&end
+Seeding random number generators (mode=3)
+length of beamline AWA_BEAMLINE per pass: 1.727975200000040e+01 m
+statistics:    ET:  00:00:3.378 CP:    3.27 BIO:0 DIO:0 PF:0 MEM:128173
+&run_control
+    n_steps = 1,
+    bunch_frequency = 0.000000000000000e+00,
+    n_indices = 0,
+    n_passes = 1,
+    n_passes_fiducial = 0,
+    terminate_on_failure = 0,
+    reset_rf_for_each_step = 1,
+    first_is_fiducial = 0,
+    restrict_fiducialization = 0,
+    reset_scattering_seed = 0,
+    wait_for_step_semaphore = {NULL},
+    step_done_semaphore = {NULL},
+    semaphore_check_interval = 1.000000000000000e+00,
+    restart_files = 0,
+&end
+statistics:    ET:  00:00:3.379 CP:    3.27 BIO:0 DIO:0 PF:0 MEM:128173
+&twiss_output
+    filename = %s.twi,
+    matched = 0,
+    output_at_each_step = 0,
+    output_before_tune_correction = 0,
+    final_values_only = 0,
+    statistics = 0,
+    radiation_integrals = 0,
+    beta_x = 2.062791874020846e+01,
+    alpha_x = 1.199347342640338e+00,
+    eta_x = 0.000000000000000e+00,
+    etap_x = 0.000000000000000e+00,
+    beta_y = 2.013344328940075e+01,
+    alpha_y = 1.162469223623984e+00,
+    eta_y = 0.000000000000000e+00,
+    etap_y = 0.000000000000000e+00,
+    reference_file = {NULL},
+    reference_element = {NULL},
+    reference_element_occurrence = 0,
+    reflect_reference_values = 0,
+    concat_order = 1,
+    higher_order_chromaticity = 0,
+    higher_order_chromaticity_points = 5,
+    higher_order_chromaticity_range = 4.000000000000000e-04,
+    quick_higher_order_chromaticity = 0,
+    chromatic_tune_spread_half_range = 0.000000000000000e+00,
+    cavities_are_drifts_if_matched = 1,
+    compute_driving_terms = 0,
+    leading_order_driving_terms_only = 0,
+    s_dependent_driving_terms_file = {NULL},
+    local_dispersion = 1,
+    n_periods = 1,
+&end
+final Twiss parameters (chromaticity valid for fully second-order calculation only!):
+         beta          alpha           nu           eta          eta'       dnu/d(dp/p)   dbeta/(dp/p)     accept.
+          m                          1/2pi           m                         1/2pi            m          mm-mrad
+--------------------------------------------------------------------------------------------------------------------
+  x:  2.852370e+00 -2.478713e+00  5.679408e-01  0.000000e+00  0.000000e+00 -1.378451e+00 -9.128824e+01  3.505856e-01
+  y:  3.085515e+00 -2.810832e+00  9.813441e-01  0.000000e+00  0.000000e+00 -1.348471e+00 -9.791185e+01  3.240950e-01
+x acceptance limited to 3.505856e-07 by DCHAMBERYAG11B ending at 1.727975e+01 m
+y acceptance limited to 3.240950e-07 by DCHAMBERYAG11B ending at 1.727975e+01 m
+statistics:    ET:  00:00:3.449 CP:    3.29 BIO:0 DIO:0 PF:0 MEM:128243
+&floor_coordinates
+    filename = %s.survey,
+    X0 = 0.000000000000000e+00,
+    Y0 = 0.000000000000000e+00,
+    Z0 = 0.000000000000000e+00,
+    theta0 = 0.000000000000000e+00,
+    phi0 = 0.000000000000000e+00,
+    psi0 = 0.000000000000000e+00,
+    include_vertices = 1,
+    vertices_only = 0,
+    magnet_centers = 1,
+    store_vertices = 0,
+    store_centers = 0,
+&end
+statistics:    ET:  00:00:3.472 CP:    3.29 BIO:0 DIO:0 PF:0 MEM:128243
+&sdds_beam
+    input = dist_10cm.sdds,
+    input_list = {NULL},
+    input_type = elegant,
+    selection_parameter = {NULL},
+    selection_string = {NULL},
+    one_random_bunch = 0,
+    n_particles_per_ring = 0,
+    reuse_bunch = 0,
+    prebunched = -1,
+    track_pages_separately = 0,
+    use_bunched_mode = 0,
+    fiducialization_bunch = 0,
+    sample_interval = 1,
+    n_tables_to_skip = 0,
+    center_transversely = 0,
+    center_arrival_time = 0,
+    reverse_t_sign = 0,
+    sample_fraction = 1.000000000000000e+00,
+    p_lower = 0.000000000000000e+00,
+    p_upper = 0.000000000000000e+00,
+    save_initial_coordinates = 1,
+    n_duplicates = 0,
+    duplicate_stagger[0] = 0.000000000000000e+00, 0.000000000000000e+00, 0.000000000000000e+00, 0.000000000000000e+00, 
+        0.000000000000000e+00, 0.000000000000000e+00,
+&end
+statistics:    ET:  00:00:3.479 CP:    3.30 BIO:0 DIO:0 PF:0 MEM:128243
+&track
+    center_on_orbit = 0,
+    center_momentum_also = 1,
+    offset_by_orbit = 0,
+    offset_momentum_also = 1,
+    soft_failure = 1,
+    use_linear_chromatic_matrix = 0,
+    longitudinal_ring_only = 0,
+    ibs_only = 0,
+    stop_tracking_particle_limit = -1,
+    check_beam_structure = 0,
+    interrupt_file = %s.interrupt,
+&end
+Updating floor coordinates
+tracking step 1
+27 Oct 25 14:02:40: Starting to read beam from SDDS file.
+Opening file "dist_10cm.sdds"
+File dist_10cm.sdds opened and checked.
+Read page 1 from file
+0 particle ID slots per bunch
+30000 rows in page 1
+File dist_10cm.sdds was used up and closed.
+27 Oct 25 14:02:40: Done reading beam from SDDS file.
+a total of 30000 data points were read
+
+tracking 30000 particles
+27 Oct 25 14:02:40: This step establishes energy profile vs s (fiducial beam).
+27 Oct 25 14:02:40: Rf phases/references reset.
+Dumping output beam data...done.
+Dumping centroid data...done.
+Dumping sigma data...done.
+Dumping final properties data...done.
+Post-tracking output completed.
+Tracking step completed   ET:  00:00:9.092 CP:    8.79 BIO:0 DIO:0 PF:0 MEM:131988
+
+
+Finished tracking.
+End of input data encountered.
+Terminating run with 4 total processors
+statistics:    ET:  00:00:9.094 CP:    8.79 BIO:0 DIO:0 PF:0 MEM:131968
+=====================================================================================
+Thanks for using Pelegant.  Please cite the following references in your publications:
+  M. Borland, "elegant: A Flexible SDDS-Compliant Code for Accelerator Simulation,"
+  Advanced Photon Source LS-287, September 2000.
+  Y. Wang and M. Borland, "Pelegant: A Parallel Accelerator Simulation Code for  
+  Electron Generation and Tracking", Proceedings of the 12th Advanced Accelerator  
+  Concepts Workshop, AIP Conf. Proc. 877, 241 (2006).
+If you use a modified version, please indicate this in all publications.
+=====================================================================================

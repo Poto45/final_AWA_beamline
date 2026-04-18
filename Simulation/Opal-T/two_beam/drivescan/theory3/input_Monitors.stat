@@ -1,0 +1,230 @@
+SDDS1
+&description
+        text="Statistics data of monitors",
+        contents="stat parameters"
+&end
+&parameter
+        name=processors,
+        type=long,
+        description="Number of Cores used"
+&end
+&parameter
+        name=revision,
+        type=string,
+        description="git revision of opal"
+&end
+&parameter
+        name=flavor,
+        type=string,
+        description="OPAL flavor that wrote file"
+&end
+&column
+        name=name,
+        type=string,
+        description="1 Monitor name"
+&end
+&column
+        name=s,
+        type=double,
+        units=m,
+        description="2 Longitudinal Position"
+&end
+&column
+        name=t,
+        type=double,
+        units=ns,
+        description="3 Passage Time Reference Particle"
+&end
+&column
+        name=numParticles,
+        type=long,
+        units=1,
+        description="4 Number of Macro Particles"
+&end
+&column
+        name=rms_x,
+        type=double,
+        units=m,
+        description="5 RMS Beamsize in x"
+&end
+&column
+        name=rms_y,
+        type=double,
+        units=m,
+        description="6 RMS Beamsize in y"
+&end
+&column
+        name=rms_s,
+        type=double,
+        units=m,
+        description="7 RMS Beamsize in s"
+&end
+&column
+        name=rms_t,
+        type=double,
+        units=ns,
+        description="8 RMS Passage Time"
+&end
+&column
+        name=rms_px,
+        type=double,
+        units=1,
+        description="9 RMS Momenta in x"
+&end
+&column
+        name=rms_py,
+        type=double,
+        units=1,
+        description="10 RMS Momenta in y"
+&end
+&column
+        name=rms_ps,
+        type=double,
+        units=1,
+        description="11 RMS Momenta in s"
+&end
+&column
+        name=emit_x,
+        type=double,
+        units=m,
+        description="12 Normalized Emittance x"
+&end
+&column
+        name=emit_y,
+        type=double,
+        units=m,
+        description="13 Normalized Emittance y"
+&end
+&column
+        name=emit_s,
+        type=double,
+        units=m,
+        description="14 Normalized Emittance s"
+&end
+&column
+        name=mean_x,
+        type=double,
+        units=m,
+        description="15 Mean Beam Position in x"
+&end
+&column
+        name=mean_y,
+        type=double,
+        units=m,
+        description="16 Mean Beam Position in y"
+&end
+&column
+        name=mean_s,
+        type=double,
+        units=m,
+        description="17 Mean Beam Position in s"
+&end
+&column
+        name=mean_t,
+        type=double,
+        units=ns,
+        description="18 Mean Passage Time"
+&end
+&column
+        name=ref_x,
+        type=double,
+        units=m,
+        description="19 x coordinate of reference particle in lab cs"
+&end
+&column
+        name=ref_y,
+        type=double,
+        units=m,
+        description="20 y coordinate of reference particle in lab cs"
+&end
+&column
+        name=ref_z,
+        type=double,
+        units=m,
+        description="21 z coordinate of reference particle in lab cs"
+&end
+&column
+        name=ref_px,
+        type=double,
+        units=1,
+        description="22 x momentum of reference particle in lab cs"
+&end
+&column
+        name=ref_py,
+        type=double,
+        units=1,
+        description="23 y momentum of reference particle in lab cs"
+&end
+&column
+        name=ref_pz,
+        type=double,
+        units=1,
+        description="24 z momentum of reference particle in lab cs"
+&end
+&column
+        name=min_x,
+        type=double,
+        units=m,
+        description="25 Min Beamsize in x"
+&end
+&column
+        name=min_y,
+        type=double,
+        units=m,
+        description="26 Min Beamsize in y"
+&end
+&column
+        name=min_s,
+        type=double,
+        units=m,
+        description="27 Min Beamsize in s"
+&end
+&column
+        name=max_x,
+        type=double,
+        units=m,
+        description="28 Max Beamsize in x"
+&end
+&column
+        name=max_y,
+        type=double,
+        units=m,
+        description="29 Max Beamsize in y"
+&end
+&column
+        name=max_s,
+        type=double,
+        units=m,
+        description="30 Max Beamsize in s"
+&end
+&column
+        name=xpx,
+        type=double,
+        units=1,
+        description="31 Correlation xpx"
+&end
+&column
+        name=ypy,
+        type=double,
+        units=1,
+        description="32 Correlation ypy"
+&end
+&column
+        name=zpz,
+        type=double,
+        units=1,
+        description="33 Correlation zpz"
+&end
+&data
+        mode=ascii,
+        no_row_counts=1
+&end
+1
+OPAL 2022.1.0 git rev. #a4e0e14466557289b4f7a843fb9eb72700ff1992
+opal-t
+YAG0b         	5.999999999999999e-01         	2.082227246019944e-09         	30000         	3.025184725540195e-03         	3.026840241355208e-03         	5.429706670181059e-20         	2.926331732987499e-03         	2.130351257560545e-03         	2.159626193362620e-03         	8.792443994316967e-02         	4.154305461269161e-06         	4.095262571519340e-06         	4.774013996062001e-21         	-6.775232133217958e-07         	2.256278016540722e-06         	5.127266894927624e-22         	2.094264224670573e+00         	0.000000000000000e+00         	0.000000000000000e+00         	6.000000000000000e-01         	0.000000000000000e+00         	0.000000000000000e+00         	9.204278873022288e+00         	-6.446196133241453e-03         	-6.506792016538293e-03         	-2.168404344971009e-19         	6.568266428426781e-03         	6.543984530683271e-03         	2.168404344971009e-19         	-7.645137370698644e-01         	-7.794300103989955e-01         	-3.248149130383750e-03         	
+YAG0c         	1.577500000000000e+00         	5.354262066021591e-09         	30000         	2.007663270072058e-03         	2.004738148569887e-03         	5.286259513085932e-20         	3.114414141282705e-03         	6.531183251469060e-03         	6.595856505316142e-03         	1.273608363254759e-01         	3.606931334805025e-06         	3.565637665749550e-06         	6.732606796623802e-21         	-8.054888936439827e-07         	-1.468268660425690e-06         	3.610495584191189e-22         	5.366102872145570e+00         	0.000000000000000e+00         	0.000000000000000e+00         	1.577500000000000e+00         	0.000000000000000e+00         	0.000000000000000e+00         	1.867603882147726e+01         	-4.282051475109950e-03         	-4.345143632519986e-03         	-2.168404344971009e-19         	4.345438468054379e-03         	4.317635361608050e-03         	2.168404344971009e-19         	-9.614220441794328e-01         	-9.629570197723680e-01         	-2.281961159932545e-03         	
+YAG1         	3.124500000000000e+00         	1.052198346775223e-08         	30000         	1.908429804576434e-03         	1.898938005431492e-03         	5.078880904969335e-20         	3.238372373022351e-03         	2.212547030017347e-03         	2.157259394396535e-03         	1.814780574023786e-01         	3.159381315027555e-06         	3.136254357256767e-06         	9.217052589567098e-21         	-1.244402555024348e-06         	-6.267693568967043e-06         	1.128521406798612e-22         	1.053375784186253e+01         	0.000000000000000e+00         	0.000000000000000e+00         	3.124500000000000e+00         	0.000000000000000e+00         	0.000000000000000e+00         	1.855627383297200e+01         	-4.064345543764708e-03         	-4.094595149937937e-03         	-2.168404344971009e-19         	4.110952280128296e-03         	4.044566096891226e-03         	2.168404344971009e-19         	6.634428674393429e-01         	6.433248822629756e-01         	-6.274853088529391e-04         	
+YAG2         	6.432500000000000e+00         	2.156429575183821e-08         	30000         	1.414200354284236e-03         	1.401896985600930e-03         	5.240648642532825e-20         	3.398533540671684e-03         	2.356984213677212e-03         	2.392824707619364e-03         	4.117843021862824e-01         	2.792135281831381e-06         	2.800537163278484e-06         	2.158008790844744e-20         	-1.113444032001502e-06         	-8.702271116436871e-06         	7.022961923922218e-23         	2.157608894080173e+01         	0.000000000000000e+00         	0.000000000000000e+00         	6.432500000000000e+00         	0.000000000000000e+00         	0.000000000000000e+00         	4.471065761236832e+01         	-3.029366700719420e-03         	-3.002731415518978e-03         	-2.168404344971009e-19         	3.066365082590746e-03         	3.010146174494865e-03         	2.168404344971009e-19         	-5.461888755709514e-01         	-5.504602916960877e-01         	2.731979669726601e-03         	
+YAG3         	9.673200000000000e+00         	3.237585685759543e-08         	30000         	9.178232732628037e-04         	9.084152421592994e-04         	5.392239849928355e-20         	3.428783570462044e-03         	6.556937436501151e-03         	6.545939671788377e-03         	6.102386083029963e-01         	2.888167383101482e-06         	2.894793666023762e-06         	3.290415035176892e-20         	-6.501681003961461e-07         	-7.018981818024837e-06         	6.018610253235165e-23         	3.238768389065062e+01         	0.000000000000000e+00         	0.000000000000000e+00         	9.673200000000000e+00         	0.000000000000000e+00         	0.000000000000000e+00         	7.982582201570457e+01         	-1.967571200787687e-03         	-1.887363279976732e-03         	-2.168404344971009e-19         	1.956914606032866e-03         	1.897772318045028e-03         	2.168404344971009e-19         	-8.773162424728342e-01         	-8.735068149443963e-01         	9.155210662022713e-03         	
+YAG4         	1.155580000000000e+01         	3.865592698948418e-08         	30000         	6.998254462351515e-04         	6.923394390313831e-04         	5.415739162119895e-20         	3.434627951730663e-03         	7.919935396049221e-03         	7.891135867913936e-03         	7.062364362072475e-01         	2.889897380918666e-06         	2.895838937305247e-06         	3.824774880406628e-20         	-4.182315481096464e-07         	-5.948643423542833e-06         	-4.570095680831640e-22         	3.866776299144643e+01         	0.000000000000000e+00         	0.000000000000000e+00         	1.155580000000000e+01         	0.000000000000000e+00         	0.000000000000000e+00         	9.738445905788794e+01         	-1.496472798909342e-03         	-1.453786259602355e-03         	-2.168404344971009e-19         	1.516694745595315e-03         	1.487598177818420e-03         	2.168404344971009e-19         	-8.533123740251667e-01         	-8.479671739494253e-01         	3.020261372082425e-03         	

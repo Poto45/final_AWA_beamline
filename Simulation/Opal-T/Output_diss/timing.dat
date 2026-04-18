@@ -1,0 +1,35 @@
+Problem size:
+            MT: 32
+            MX: 16
+            MY: 16
+            NP: 30000
+
+                  num Nodes   CPU tot  Wall tot
+===============================================
+mainTimer...........      1     81.76     96.22
+
+                  num Nodes   CPU max  Wall max   CPU min  Wall min   CPU avg  Wall avg
+=======================================================================================
+mainTimer...........      1     81.76     96.22     81.76     96.22     81.76     96.22
+Binaryrepart........      1         0         0         0         0         0         0
+Boundingbox.........      1      1.13     1.052      1.13     1.052      1.13     1.052
+Boundingbox-bounds..      1      0.31    0.2964      0.31    0.2964      0.31    0.2964
+Boundingbox-update..      1      0.81     0.737      0.81     0.737      0.81     0.737
+Compute Statistics..      1     12.25     12.29     12.25     12.29     12.25     12.29
+ComputePotential....      1     15.17     15.15     15.17     15.15     15.17     15.15
+Create Distr........      1      0.01   0.00843      0.01   0.00843      0.01   0.00843
+External field eval.      1     14.65     14.86     14.65     14.86     14.65     14.86
+Fast inside test....      1         0         0         0         0         0         0
+Histogram...........      1         0         0         0         0         0         0
+Initialize geometry.      1         0         0         0         0         0         0
+Inside test.........      1         0         0         0         0         0         0
+Load Distr..........      1         0         0         0         0         0         0
+Particle Inside.....      1         0         0         0         0         0         0
+Ray tracing.........      1         0         0         0         0         0         0
+SelfField total.....      1     36.64     36.88     36.64     36.88     36.64     36.88
+SF: GreensFTotal....      1     10.96     11.04     10.96     11.04     10.96     11.04
+TIntegration1.......      1       1.4     1.732       1.4     1.732       1.4     1.732
+TIntegration2.......      1      4.56      4.41      4.56      4.41      4.56      4.41
+WakeField...........      1         0         0         0         0         0         0
+Write H5-File.......      1      2.03     15.73      2.03     15.73      2.03     15.73
+Write Stat..........      1      0.42    0.4203      0.42    0.4203      0.42    0.4203

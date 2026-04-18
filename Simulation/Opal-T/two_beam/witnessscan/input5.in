@@ -1,0 +1,361 @@
+/*
+	AWA Gun, configured in this input file for fast execution 
+	(low particle number & low fieldsolver resolution, large
+	timestep and only one energy bin).
+	
+*/
+
+OPTION, PSDUMPFREQ      = 10;    // 6d data written every 10th time step (h5).
+OPTION, STATDUMPFREQ    = 1;     // Beam Stats written every time step (stat).
+OPTION, BOUNDPDESTROYFQ = 10;    // Delete lost particles, if any out of 10 \sigma
+OPTION, AUTOPHASE       = 4;     // Autophase is on, and phase of max energy
+                                 // gain will be found automatically for cavities.
+OPTION, VERSION=10900;
+
+Title, string="AWA Photoinjector -- Drive Beamline";
+
+Value,{OPALVERSION};
+
+//----------------------------------------------------------------------------
+//Global Parameters
+// field map locations
+STRING path_fieldmaps3d="/lstr/sahara/aard/cphillips/awa-opal-lattices/awa_fieldmaps_3D";
+STRING path_fieldmaps2d="/lstr/sahara/aard/cphillips/awa-opal-lattices/awa_fieldmaps_2D";
+
+REAL rf_freq             = 1.3e9;    // RF frequency. (Hz)
+REAL n_particles         = 3E4;      // Number of particles in simulation.
+REAL beam_bunch_charge   = 1e-9;     // Charge of bunch. (C)
+
+//----------------------------------------------------------------------------
+//Fieldsolver configuration
+REAL MX   = 16;
+REAL MY   = 16;
+REAL MZ   = 32;
+REAL BINS =  1;
+
+//----------------------------------------------------------------------------
+// Gun timestep
+
+REAL dTG = 1.0E-11;
+
+//Initial Momentum Calculation
+REAL Edes    = 1.4e-9; //initial energy in GeV
+REAL gamma   = (Edes+EMASS)/EMASS; 
+REAL beta    = sqrt(1-(1/gamma^2));
+REAL P0      = gamma*beta*EMASS;    //inital z momentum
+
+//Printing initial energy and momentum to terminal output.
+value , {Edes, P0};
+
+
+
+//----------------------------------------------------------------------------
+//Diagnostics
+// 
+
+
+DiagYAG1: MONITOR, ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0, 3.1245}, OUTFN = "YAG1.h5";
+DiagYAG2: MONITOR, ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0, 6.4325}, OUTFN = "YAG2.h5";
+DiagYAG3: MONITOR, ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0, 9.6732}, OUTFN = "YAG3.h5";
+DiagYAG4: MONITOR, ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,11.5558}, OUTFN = "YAG4.h5";
+
+
+
+//----------------------------------------------------------------------------
+// 						RF photoinjector (Gun)
+//
+
+REAL Gun_field_maps = 2;  // 2D vs 3D maps
+
+//REAL klystron_1  =  1.0;
+REAL gun_inj_amp   =  40.64979314068568; 
+REAL gun_inj_phase =  -15.985540997564346;  // Rf injection phase (in degrees) with restpect 
+                             // to max phase. i.e. 0.0 inj phase corresponds 
+                             // to running on crest (max energy).
+
+photocathode: SOURCE, ORIGIN = {0,0,0};
+
+if (Gun_field_maps == 2.0){
+   REAL gun_freq = 1300.013338990260;
+   REAL gun_len  = 0.292707450;
+   
+   GUN: RFCavity, L = gun_len, 
+        VOLT = gun_inj_amp, 
+	ORIGIN = {0,0,0}, 
+	TYPE = "STANDING",
+        FMAPFN = "${path_fieldmaps2d}/driveGun.T7", 
+	FREQ = gun_freq, 
+	LAG = (gun_inj_phase*Pi)/180.0; 
+}
+else {
+   REAL gun_freq = 1300.0;
+   REAL gun_len  = 2.327100e-01;
+   
+   GUN: RFCavity, L = gun_len, 
+        VOLT = gun_inj_amp, 
+	ORIGIN = {0,0,0}, 
+	TYPE = "STANDING",
+        FMAPFN = "${path_fieldmaps3d}/gun3d.T7", 
+	FREQ = gun_freq, 
+	LAG = (gun_inj_phase*Pi)/180.0; 
+}
+// Focusing Solenoid DS1
+// note polarity reversed so when Ifocu=Ibuck the Bcath=0 T
+REAL Ifocu = 294.17687528123815; // [A] ;; 100 A gives Bcath=-2.545263e-02
+REAL KSF = (Ifocu/550.)*0.183100238;
+solF: Solenoid, L = 1.2, ELEMEDGE=0.0, KS = KSF, 
+         FMAPFN = "${path_fieldmaps2d}/GUNSOL_F550A.T7";
+
+// Matching Solenoid DS3
+// note polarity is same as solF (i.e. flipped from solB)
+REAL Imain  = 182.9537919304211; //[A] ;; 100 A gives Bcath=-6.481346e-05
+REAL KSM = (Imain/440.)*0.610728687;
+solM:  Solenoid, L = 1.2, ELEMEDGE=0.0, KS = KSM, 
+         FMAPFN = "${path_fieldmaps2d}/GUNSOL_M440A.T7";
+
+// Bucking solenoid DS1 (same as focusing)
+// REAL Ibuck = 0; // [A] ;; 100 A gives Bcath=2.526366e-02 
+// line below if for bucking the field on cathode
+REAL Ibuck = 0.99126080638318*(Ifocu*2.545263e-02+Imain*6.481346e-05)/2.526366e-02; 
+REAL KSB = (Ibuck/550.)*0.138950115;
+solB:  Solenoid, L = 1.2, ELEMEDGE=0.0, KS = KSB, 
+         FMAPFN = "${path_fieldmaps2d}/GUNSOL_B550A.T7";
+
+//----------------------------------------------------------------------------
+// 						Linac
+//
+
+ // linac settings
+
+REAL Linac_field_maps = 2;  // 3 - 3D or 2 -- 2D (3D for coupler kick)
+
+// knobs to gang cavity according to klystron
+REAL Klystron_2 = 1.; 
+REAL Klystron_3 = 1.; 
+REAL Klystron_4 = 1.; //  when running EEX beamline 
+
+// phase and amplitude 
+REAL L1_Amp   = 11.779439765020673*Klystron_2;
+REAL L1_Phase = -10.885675477233857;
+REAL L2_Amp   = 11.186665186098248*Klystron_2;
+REAL L2_Phase = 10.59906089386481;
+REAL L3_Amp   = 22.06*Klystron_3;
+REAL L3_Phase = 0;
+REAL L4_Amp   = 22.06*Klystron_4;
+REAL L4_Phase = 0;
+REAL L5_Amp   = 22.06*Klystron_3;
+REAL L5_Phase = 0;
+REAL L6_Amp   = 22.06*Klystron_4;
+REAL L6_Phase = 0;
+
+// solenoids (all 500 A maximum) 
+REAL Isol_L1 = 0.; 
+REAL Isol_L2 = 0.; 
+REAL Isol_L3 = 0.; 
+
+
+
+// linac tanks positions
+REAL zc_linac1  =  1.1810; // *center linac 1
+REAL zc_linac2  =  3.9745; // *center linac 2
+REAL zc_linac3  =  5.5425; // *center linac 3
+REAL zc_linac4  =  7.6809; // *center linac 4
+REAL zc_linac5  =  9.0207; // *center linac 5
+REAL zc_linac6  = 10.4358; // *center linac 6
+
+
+if (Linac_field_maps == 2.0){
+    REAL linac_len  = 1.20713;  
+    REAL linac_freq = 1300.0;
+
+    L1: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+        FMAPFN = "${path_fieldmaps2d}/driveLinac2D.T7",
+	VOLT = L1_Amp, LAG = (L1_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_linac1-linac_len/2.};            
+
+    L2: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+        FMAPFN = "${path_fieldmaps2d}/driveLinac2D.T7",
+	VOLT = L2_Amp, LAG = (L2_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_linac2-linac_len/2.};            
+
+    L3: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+        FMAPFN = "${path_fieldmaps2d}/driveLinac2D.T7",
+	VOLT = L3_Amp, LAG = (L3_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_linac3-linac_len/2.};            
+
+    L4: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+        FMAPFN = "${path_fieldmaps2d}/driveLinac2D.T7",
+	VOLT = L4_Amp, LAG = (L4_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_linac4-linac_len/2.};            
+
+    L5: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+        FMAPFN = "${path_fieldmaps2d}/driveLinac2D.T7",
+	VOLT = L5_Amp, LAG = (L5_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_linac5-linac_len/2.};            
+
+    L6: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+        FMAPFN = "${path_fieldmaps2d}/driveLinac2D.T7",
+	VOLT = L6_Amp, LAG = (L6_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_linac6-linac_len/2.};            
+}
+else { 
+    REAL linac_len  = 1.1;
+    REAL linac_freq = 1300.400;
+
+    L1: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+	FMAPFN = "${path_fieldmaps3d}/drivelinaccplr_posY.ascii",  // omega3p map cplr at +y
+	VOLT = L1_Amp, LAG = (L1_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,-90.0}, ORIGIN = {0,0,zc_linac1-linac_len/2.};    // coupler on the Right 
+	       
+    L2: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+	FMAPFN = "${path_fieldmaps3d}/drivelinaccplr_posY.ascii",  // omega3p map cplr at +y
+	VOLT = L2_Amp, LAG = (L2_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0, 90.0}, ORIGIN = {0,0,zc_linac2-linac_len/2.};    // coupler on the Left         
+
+    L3: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+	FMAPFN = "${path_fieldmaps3d}/drivelinaccplr_posY.ascii",  // omega3p map cplr at +y
+	VOLT = L3_Amp, LAG = (L3_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0, 90.0}, ORIGIN = {0,0,zc_linac3-linac_len/2.};    // coupler on the Left          
+
+    L4: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+	FMAPFN = "${path_fieldmaps3d}/drivelinaccplr_posY.ascii",  // omega3p map cplr at +y
+	VOLT = L4_Amp, LAG = (L4_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,-90.0}, ORIGIN = {0,0,zc_linac4-linac_len/2.};    // coupler on the Right         
+
+    L5: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+	FMAPFN = "${path_fieldmaps3d}/drivelinaccplr_posY.ascii",  // omega3p map cplr at +y
+	VOLT = L5_Amp, LAG = (L5_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,-90.0}, ORIGIN = {0,0,zc_linac5-linac_len/2.};    // coupler on the Right         
+
+    L6: RFCavity, L = linac_len, FREQ = linac_freq, TYPE = "STANDING",	
+	FMAPFN = "${path_fieldmaps3d}/drivelinaccplr_posY.ascii",  // omega3p map cplr at +y
+	VOLT = L6_Amp, LAG = (L6_Phase* Pi) / 180.0, 
+	ORIENTATION = {0.0,0.0,-90.0}, ORIGIN = {0,0,zc_linac6-linac_len/2.};    // coupler on the Right          
+}
+
+// linac solenoids positions
+REAL zc_sol_alin1  =  2.0775; // center of solenoid donstream of linac 1
+REAL zc_sol_alin2  =  4.7105; // center of solenoid donstream of linac 2
+REAL zc_sol_alin3  =  6.7772; // center of solenoid donstream of linac 3
+
+
+REAL sol_linac_len = 1.0;  // axial length of the 2D map 
+
+
+
+REAL KSL1 = (Isol_L1/500.);
+REAL KSL2 = (Isol_L2/500.);
+REAL KSL3 = (Isol_L3/500.);
+
+sol_L1:  Solenoid, L = 1.0, ELEMEDGE=0.0, KS = KSL1, 
+         FMAPFN = "${path_fieldmaps2d}/LINSOL_LB_500A.T7",
+         ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_sol_alin1-sol_linac_len/2.};            
+
+sol_L2:  Solenoid, L = 1.0, ELEMEDGE=0.0, KS = KSL2, 
+         FMAPFN = "${path_fieldmaps2d}/LINSOL_500A.T7",
+         ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_sol_alin2-sol_linac_len/2.};            
+
+sol_L3:  Solenoid, L = 1.0, ELEMEDGE=0.0, KS = KSL3, 
+         FMAPFN = "${path_fieldmaps2d}/LINSOL_500A.T7",
+         ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_sol_alin3-sol_linac_len/2.};            
+
+
+//value,{KSF,SF};
+
+//----------------------------------------------------------------------------
+//Drift after gun (should not be needed anymore)
+//
+DiagYAG0a: MONITOR, ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,0.01}, OUTFN = "YAG0a.h5";
+DiagYAG0b: MONITOR, ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,0.6}, OUTFN = "YAG0b.h5";
+DiagYAG0c: MONITOR, ORIENTATION = {0.0,0.0,0.0}, ORIGIN = {0,0,zc_sol_alin1-sol_linac_len/2.}, OUTFN = "YAG0c.h5";
+
+DR1: DRIFT, L = 1.4, ELEMEDGE = 0.2;
+DR2: DRIFT, L = 3.0, ELEMEDGE = 1.4;
+
+
+//----------------------------------------------------------------------------
+// DEFINE BEAMLINES
+//
+
+Injector:   Line = (photocathode, GUN, DiagYAG0a, solB, solF, solM, DR1, DiagYAG0b);
+Linac:      Line = (L1, DiagYAG0c, sol_L1, DiagYAG1, L2, sol_L2, L3, DiagYAG2, 
+                    sol_L3, L4, L5, DiagYAG3, L6); 
+ 
+GSL:        Line = (Injector, L1, DR2);
+
+Gun_to_YAG4:Line = (Injector, Linac, DiagYAG4, 5*DR1);
+
+// INITIAL DISTRIBUTION
+//
+// Flattop distribution. 
+// SIGMAX/Y:      RMS radius of transverse beam size (Laser radius in m). 
+// TRISE/FALL:    Rise time/fall time in longitudinal direction (s).
+// TPULSEFWHM:    FWHM in longitudinal direction (s).
+// CUTOFFLONG:    Longitudinal cuttoff in units of sigma.
+// NBIN:          Number of energy bins to use during emission.
+// EMISSIONSTEPS: Number of steps during emssion. 
+//                Emission time step is adjusted to fit this number.
+// EKIN:          Kinetic energy of electrons at emission (eV). 
+// ELASER:        Energy of laser (eV). 
+// W:             Photocathode work function (eV). 
+// FE:            Fermi energy of photocathode (eV). 
+// CATHTEMP:      Operating temperature of photocathode (K). 
+
+// Note, ELASER, W, FE, and CATHTEMP are used for the NONEQUIL emission model.
+// These values are not necessary when using other models.
+
+// laser distribution using the new AWA laser
+// stacking 300-fs FWHM (=300/2.35 rms) Gaussian pulse
+
+REAL SigmaLaser = 0.002291188605174065;
+
+DistFT: DISTRIBUTION, TYPE = FLATTOP,
+        SIGMAX = SigmaLaser,  // this is actually 2sigma -- radius for unif. distrib.
+        SIGMAY = SigmaLaser,  // this is actually 2sigma -- radius for unif. distrib.
+//        CUTOFFX = 2,
+//        CUTOFFY = 2,
+//        SIGMAR  = 6e-3,
+//        CUTOFFR = 1, 
+        TRISE = 300e-15/2.35*1.6869,       
+        TFALL = 300e-15/2.35*1.6869, // see Tab14.11       
+        OFFSETT = 6.333333333333334e-12,
+        TPULSEFWHM = 6e-12, 
+        CUTOFFLONG = 4.0,
+        NBIN = BINS,
+        EMISSIONSTEPS = 200,
+        EMISSIONMODEL = ASTRA,
+        EKIN = 0.55,           
+        EMITTED = True,        
+        WRITETOFILE = True;    
+
+
+// Note on emission time step: FWHM pulse width divided by emission 
+// steps gives the time step for the emissions process. 
+// i.e 20.0e-12 / 100 gives a time step of 2e-13 (s) during emission. 
+// This is the not the same as the time step used in rest of the file. 
+
+FS_SC: Fieldsolver, FSTYPE = FFT, 
+            MX = MX, MY = MY, MT = MZ, 
+            PARFFTX = true, 
+            PARFFTY = true, 
+            PARFFTT = true, 
+            BCFFTX = open, 
+            BCFFTY = open, 
+            BCFFTT = open,
+            BBOXINCR = 1, 
+            GREENSF = INTEGRATED;
+
+//----------------------------------------------------------------------------
+// Electron Beam Definition
+//
+
+BEAM1:  BEAM, PARTICLE = ELECTRON, pc = P0, NPART = n_particles,
+        BFREQ = rf_freq * 1E-6, BCURRENT = beam_bunch_charge * rf_freq , CHARGE = -1;
+
+TRACK, LINE = Gun_to_YAG4, BEAM = BEAM1, MAXSTEPS = 1000000, DT = {dTg}, ZSTOP={12.0}; 
+
+RUN, METHOD = "PARALLEL-T", BEAM = BEAM1, 
+        FIELDSOLVER = FS_SC, DISTRIBUTION = DistFT;
+	
+ENDTRACK;
+

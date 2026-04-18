@@ -6,13 +6,17 @@ Input:
 RF frequency = 1.3e9 Hz
 N particles = 30000
 Beam bunch charge = 1 nC
-Gun injection amp = 40.65
-Gun injection phase = -15.99
-L1_amp = 11.78
-L1_phase = -10.89
-L2_amp = 11.19
-L2_phase = 10.60
-L{3,4,5,6}_amp = 22.06
+Gun injection amp = 40.65 MV/m
+Gun injection phase = -15.99 degrees
+Bucking/Focus solenoid = 294.2 A
+Main solenoid = 183 A
+Bucking solenoid scale = 0.991
+L1_amp = 11.78 MV/m
+L1_phase = -10.89 degrees
+L2_amp = 11.19 MV/m
+L2_phase = 10.60 degrees
+L{3,4,5,6}_amp = 22.06 MV/m
+Laser radius = 4.582 mm
 
 Output beam parameters:
 rms_x = 
@@ -25,7 +29,12 @@ emit_s =
 beta_x = 
 beta_y = 
 kinetic energy = 
-N_particles = 
+N_particles = 30000
+
+
+The method of doing two beam is described in my dissertation. The resulting inputs and resulting files are found in 'two-beam' directory.
+
+
 
 
 

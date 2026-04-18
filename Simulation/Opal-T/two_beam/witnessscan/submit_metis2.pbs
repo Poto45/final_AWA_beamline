@@ -1,0 +1,46 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=32:mpiprocs=32:mem=32gb
+#PBS -l walltime=20:00:00
+#PBS -j oe
+#PBS -V
+#PBS -N ga-bebop-opal
+
+OPAL_FILE=input_3p8behind.in
+OPAL_FILE=input_1p5lambda.in
+OPAL_FILE=input2.in
+
+module purge
+module load python/python-3.9.10
+module load opal/opal-2022.1
+
+cd $PBS_O_WORKDIR
+
+echo "WorkDir=$PBS_O_WORKDIR"
+OUTDIR=$PBS_O_WORKDIR/3p8behind
+OUTDIR=$PBS_O_WORKDIR/1p5lambda
+OUTDIR=$PBS_O_WORKDIR/theory2
+
+
+echo "OUTDIR=$OUTDIR"
+mkdir -p ${OUTDIR}
+cp $OPAL_FILE $OUTDIR
+cp submit_metis.pbs $OUTDIR
+cd $OUTDIR
+
+
+
+
+
+
+export PYTHONPATH=/lstr/sahara/aard/philippe/codes/pyOPALTools/:$PYTHONPATH
+set -x
+
+
+#python3.9 -m scoop -n 32 ga-bebop-opal.py
+#echo 'Done'
+opal $OPAL_FILE
+
+
+
+
+
