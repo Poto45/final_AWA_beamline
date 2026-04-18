@@ -1,0 +1,338 @@
+! In order to cancel something out or comment it out, use exclamation mark
+
+&global_settings
+	mpi_io_read_buffer_size = 400000,
+	mpi_io_write_buffer_size = 400000,
+&end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! First is to make sure beam doesn't grow too bigoptimize in structure
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+&run_setup
+	lattice = "final.lte",
+	use_beamline = "awa_beamline",
+	default_order = 1,
+	p_central = "{sddsanalyzebeam dist_1d.sdds -pipe=out |     sdds2stream -pipe -column=pAverage}",
+&end
+
+&run_control
+	n_steps = 1,
+&end
+
+&twiss_output
+	matched = 0
+	concat_order = 1,
+	beta_x = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=betax}",
+	beta_y = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=betay}",
+	alpha_x = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=alphax}",
+	alpha_y = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=alphay}"
+	filename = "%s.twi1"
+&end
+
+
+! ----------------------
+! Fit through PETS
+! ----------------------
+
+&optimization_setup
+	mode = minimize, method = simplex,
+	target = 1e-12, tolerance = 1e-14,
+	n_passes = 10, n_evaluations = 1500,
+	n_restarts = 5,
+&end
+
+&optimization_term
+	term = "YAG6#1.betax 8. 1e-2 sene"
+&end
+
+&optimization_term
+	term = "YAG6#1.betay 8. 1e-2 sene"
+&end
+
+&optimization_term
+	term = "YAG6#1.alphax 0 1e-3 sene"
+&end
+
+&optimization_term
+	term = "YAG6#1.alphay 0 1e-3 sene"
+&end
+
+! trying to put a limit on betax and betay for the entire beamline
+&optimization_term
+	term = "max.betax 10. 1 segt"
+&end
+&optimization_term
+	term = "max.betay 10. 1 segt"
+&end
+
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP4",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP5",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP6",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP7",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QRBS11",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QRBS12",
+	upper_limit = 20,
+&end
+
+&bunched_beam
+&end
+
+&optimize
+	summarize_setup=1
+&end
+
+&save_lattice
+	filename = "first.lte"
+&end
+
+!!!!!!!!!!!!!!!!!!!!!!!!
+! optimize in structure
+!!!!!!!!!!!!!!!!!!!!!!!!
+&run_setup
+	lattice = "first.lte",
+	use_beamline = "awa_beamline",
+	default_order = 1,
+	p_central = "{sddsanalyzebeam dist_1d.sdds -pipe=out |     sdds2stream -pipe -column=pAverage}",
+&end
+
+&run_control
+	n_steps = 1,
+&end
+
+&twiss_output
+	matched = 0
+	concat_order = 1,
+	beta_x = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=betax}",
+	beta_y = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=betay}",
+	alpha_x = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=alphax}",
+	alpha_y = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=alphay}",
+	filename = "%s.twi2"
+&end
+
+
+
+&optimization_setup
+	mode = minimize, method = simplex,
+	target = 1e-12, tolerance = 1e-14,
+	n_passes = 10, n_evaluations = 1500,
+	n_restarts = 5,
+&end
+
+! ensure the bunches are same size
+&optimization_term
+  term = "CMBR2#1.Sx CMBR2#1.Sy - sqr"
+&end
+
+
+! reach a beam waist at the center of the structure by programming for end of structure
+&optimization_term
+	term = "CMBR2#1.betax 0.5 5e-4 sene"
+&end
+
+&optimization_term
+	term = "CMBR2#1.betay 0.5 5e-4 sene"
+&end
+
+&optimization_term
+	term = "CMBR2#1.alphax 0 1e-3 sene"
+&end
+
+&optimization_term
+	term = "CMBR2#1.alphay 0 1e-3 sene"
+&end
+
+
+! trying to put a limit on betax and betay for the entire beamline
+&optimization_term
+	term = "max.betax 18. 1e-2 segt"
+&end
+&optimization_term
+	term = "max.betay 18. 1e-2 segt"
+&end
+
+
+
+!
+!!!!!! second group of quads (4 IMP) and last set of three quads
+!
+
+!&optimization_variable
+!	item = "K1",
+!	lower_limit = -10,
+!	name = "QIMP13",
+!	upper_limit = 10,
+!&end
+
+!&optimization_variable
+!	item = "K1",
+!	lower_limit = -10,
+!	name = "QIMP14",
+!	upper_limit = 10,
+!&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP15",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP16",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP17",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP18",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP19",
+	upper_limit = 20,
+&end
+
+&optimization_variable
+	item = "K1",
+	lower_limit = -20,
+	name = "QIMP20",
+	upper_limit = 20,
+&end
+
+
+&bunched_beam
+&end
+
+&optimize
+	summarize_setup=1
+&end
+
+&save_lattice
+	filename = "second.lte"
+&end
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! check fit
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+&divide_elements
+	name = *
+	maximum_length = 0.01
+&end
+
+&run_setup
+	lattice = "second.lte",
+	use_beamline = "awa_beamline",
+	default_order = 2,
+	p_central = "{sddsanalyzebeam dist_1d.sdds -pipe=out |     sdds2stream -pipe -column=pAverage}",
+	sigma = "%s.s",
+	final = "%s.fin",
+	output = "%s.out",
+	magnets = "%s.mag",
+	centroid = "%s.cen"
+&end
+
+&run_control
+	n_indices = 0
+&end
+
+&twiss_output
+        matched=0
+      concat_order = 1,        ! for speed
+        beta_x  = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=betax}",
+        beta_y  = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=betay}",
+        alpha_x = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=alphax}",
+        alpha_y = "{sddsanalyzebeam dist_1d.sdds -pipe=out | sdds2stream -pipe -column=alphay}",
+	filename = "%s.twi"
+&end
+
+&floor_coordinates
+	filename = "%s.survey"
+	include_vertices = 1
+	magnet_centers = 1
+&end
+
+&sdds_beam
+	input = "dist_1d.sdds"
+&end
+
+&track
+&end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

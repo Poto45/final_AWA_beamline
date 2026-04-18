@@ -1,0 +1,106 @@
+! In order to cancel something out or comment it out, use exclamation mark
+
+&global_settings
+	mpi_io_read_buffer_size = 400000,
+	mpi_io_write_buffer_size = 400000,
+&end
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! First is to make sure beam doesn't grow too bigoptimize in structure
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+&run_setup
+	lattice = "final.lte",
+	use_beamline = "awa_beamline",
+	default_order = 1,
+	p_central = "{sddsanalyzebeam dist_10cm.sdds -pipe=out |     sdds2stream -pipe -column=pAverage}",
+&end
+
+&run_control
+	n_steps = 1,
+&end
+
+&twiss_output
+	matched = 0
+	concat_order = 1,
+	beta_x = "{sddsanalyzebeam dist_10cm.sdds -pipe=out | sdds2stream -pipe -column=betax}",
+	beta_y = "{sddsanalyzebeam dist_10cm.sdds -pipe=out | sdds2stream -pipe -column=betay}",
+	alpha_x = "{sddsanalyzebeam dist_10cm.sdds -pipe=out | sdds2stream -pipe -column=alphax}",
+	alpha_y = "{sddsanalyzebeam dist_10cm.sdds -pipe=out | sdds2stream -pipe -column=alphay}"
+	filename = "%s.twi1"
+&end
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! check fit
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+&run_setup
+	lattice = "final.lte",
+	use_beamline = "awa_beamline",
+	default_order = 2,
+	p_central = "{sddsanalyzebeam dist_10cm.sdds -pipe=out |     sdds2stream -pipe -column=pAverage}",
+	sigma = "%s.s",
+	final = "%s.fin",
+	output = "%s.out",
+	magnets = "%s.mag",
+	centroid = "%s.cen"
+&end
+
+&run_control
+	n_indices = 0
+&end
+
+&twiss_output
+        matched=0
+      concat_order = 1,        ! for speed
+        beta_x  = "{sddsanalyzebeam dist_10cm.sdds -pipe=out | sdds2stream -pipe -column=betax}",
+        beta_y  = "{sddsanalyzebeam dist_10cm.sdds -pipe=out | sdds2stream -pipe -column=betay}",
+        alpha_x = "{sddsanalyzebeam dist_10cm.sdds -pipe=out | sdds2stream -pipe -column=alphax}",
+        alpha_y = "{sddsanalyzebeam dist_10cm.sdds -pipe=out | sdds2stream -pipe -column=alphay}",
+	filename = "%s.twi"
+&end
+
+&floor_coordinates
+	filename = "%s.survey"
+	include_vertices = 1
+	magnet_centers = 1
+&end
+
+&sdds_beam
+	input = "dist_10cm.sdds"
+&end
+
+&track
+&end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
